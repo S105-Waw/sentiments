@@ -64,9 +64,23 @@ if uploaded_file is not None:
 else:
     st.warning("⚠️ Please upload a CSV file to proceed with sentiment analysis.")
 
+# **New Feature**: Test your own text for sentiment analysis
+st.write("### 🔮 Test Your Own Text")
+
+# Create an input box for users to enter their text
+user_input = st.text_area("Enter a sentence or paragraph to analyze its sentiment:")
+
+# If user has entered text, perform sentiment analysis
+if user_input:
+    result = classifier(user_input)
+    sentiment = result[0]['label']
+    confidence = result[0]['score'] * 100
+    st.write(f"### Sentiment: {sentiment}")
+    st.write(f"### Confidence: {confidence:.2f}%")
+    
 # About section
 st.sidebar.markdown("### ℹ️ About")
-st.sidebar.info("""
+st.sidebar.info(""" 
 This app analyzes the sentiment of customer reviews using a pre-trained sentiment analysis model.
 - **Sentiment**: The model classifies each review as either 'POSITIVE' or 'NEGATIVE'.
 - **Confidence**: The probability score for each prediction.
