@@ -1,6 +1,6 @@
 import streamlit as st # I will use this to visualize the dashboard and for deployment
 import pandas as pd
-from transformers import pipeline, DistilBertTokenizer, DistilBertForSequenceClassification
+from transformers import pipeline
 
 # Setting up page layout
 st.set_page_config(page_title="Sentiment Analysis Dashboard", page_icon=":bar_chart:", layout="wide")
