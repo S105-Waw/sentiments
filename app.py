@@ -29,7 +29,7 @@ if uploaded_file is not None:
         # Load the CSV file
         df = pd.read_csv(uploaded_file)
         st.write("### 📊 Sample of Uploaded Data")
-        st.table(df.head())  # Display a static table preview of the data
+        st.table(df.head(10))  # Display a static table preview of the data
 
         # Check if 'Review' column exists
         st.write("### Columns in the Uploaded Data")
@@ -45,7 +45,7 @@ if uploaded_file is not None:
 
             # Display the updated DataFrame with Sentiment & Confidence columns
             st.write("#### Analyzed Data:")
-            st.table(df.head())  # Show a static table with the analysis results
+            st.table(df.head(10))  # Show a static table with the analysis results
 
             # Visualize the sentiment distribution
             st.write("### 📊 Sentiment Distribution")
