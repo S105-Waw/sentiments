@@ -131,13 +131,14 @@ with st.form("add_knowledge_form"):
             st.write(f"Last Updated: {last_updated}")
             st.write(f"Access Frequency: {access_frequency}")
 
-            # Provide a download button for the updated CSV file
-            st.download_button(
-                label="📥 Download Updated CSV",
-                data=df.to_csv(index=False),
-                file_name="knowledge_data.csv",
-                mime="text/csv"
-            )
+# Provide a download button for the CSV file (even without adding anything)
+st.subheader("📥 Download CSV File")
+st.download_button(
+    label="Download CSV",
+    data=df.to_csv(index=False),
+    file_name="knowledge_data.csv",
+    mime="text/csv"
+)
 
 # Footer section
 st.markdown("""
