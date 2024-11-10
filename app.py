@@ -6,8 +6,8 @@ from datetime import datetime
 # Load the CSV data (replace with actual path if needed)
 df = pd.read_csv('knowledge_data.csv')
 
-# Initialize Streamlit page layout
-st.set_page_config(page_title="Cloud-Based Knowledge Management", page_icon=":bar_chart:", layout="wide")
+# Initialize Streamlit page layout with reduced sidebar size
+st.set_page_config(page_title="Cloud-Based Knowledge Management", page_icon=":bar_chart:", layout="wide", initial_sidebar_state="collapsed")
 
 # Sidebar elements
 with st.sidebar:
@@ -25,9 +25,6 @@ with st.sidebar:
     You can search for articles, documents, and resources based on various categories and access frequency. 
     The system provides insights into knowledge distribution and trends, improving data-driven decision-making.
     """)
-
-    # Optional: Add a small image or logo in the sidebar (you can add your image URL here)
-    # st.image("https://via.placeholder.com/150", width=150)
 
 # Main page content
 st.title("🌟 Cloud-Based Knowledge Management Dashboard")
@@ -75,6 +72,47 @@ if not search_results.empty:
         file_name="filtered_knowledge_data.csv",
         mime="text/csv"
     )
+
+# Knowledge Addition Section
+st.subheader("➕ Add New Knowledge Entry")
+
+with st.form("add_knowledge_form"):
+    # Create input fields for new knowledge entry
+    title = st.text_input("Title")
+    content_type = st.selectbox("Content Type", ["Article", "Document", "Research Paper", "Tutorial", "Other"])
+    author = st.text_input("Author")
+    date_created = st.date_input("Date Created", datetime.today())
+    last_updated = st.date_input("Last Updated", datetime.today())
+    access_frequency = st.slider("Access Frequency", 1, 100, 1)
+    
+    # Submit button to add the new knowledge entry
+    submit_button = st.form_submit_button("Add Knowledge")
+    
+    if submit_button:
+        # Create a new row of data
+        new_data = {
+            "Title": title,
+            "Content_Type": content_type,
+            "Author": author,
+            "Date_Created": str(date_created),
+            "Last_Updated": str(last_updated),
+            "Access_Frequency": access_frequency
+        }
+        
+        # Append the new data to the DataFrame
+        df = df.append(new_data, ignore_index=True)
+        
+        # Save the updated DataFrame back to the CSV file
+        df.to_csv('knowledge_data.csv', index=False)
+        
+        # Show a confirmation message
+        st.success("New knowledge entry added successfully!")
+        st.write(f"Title: {title}")
+        st.write(f"Content Type: {content_type}")
+        st.write(f"Author: {author}")
+        st.write(f"Date Created: {date_created}")
+        st.write(f"Last Updated: {last_updated}")
+        st.write(f"Access Frequency: {access_frequency}")
 
 # Footer section
 st.markdown("""
