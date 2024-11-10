@@ -2,10 +2,10 @@ import pandas as pd
 import streamlit as st
 from datetime import datetime
 
-# Load the CSV data (replace with actual path if needed)
+# Load the CSV data 
 df = pd.read_csv('knowledge_data.csv')
 
-# Initialize Streamlit page layout with sidebar open by default and reduced sidebar size
+# Initializing Streamlit page layout with sidebar open by default and reduced sidebar size
 st.set_page_config(page_title="Cloud-Based Knowledge Management", page_icon=":bar_chart:", layout="wide", initial_sidebar_state="expanded")
 
 # Custom CSS to adjust sidebar size
@@ -41,15 +41,15 @@ with st.sidebar:
 # Main page content
 st.title("🌟 Cloud-Based Knowledge Management Dashboard")
 
-# Display the column names to check for any discrepancies
+# Displaying the column names to check for any discrepancies
 st.subheader("Column Names in the Dataset")
 st.write(df.columns)
 
-# Display a sample of the knowledge data
+# Displaying a sample of the knowledge data
 st.subheader(" Knowledge Data")
 st.dataframe(df.head(10))
 
-# Display the distribution of content types (e.g., articles, documents)
+# Displaying the distribution of content types (e.g., articles, documents)
 if 'Content_Type' in df.columns:
     st.subheader("📊 Knowledge Distribution by Content Type")
     content_type_counts = df['Content_Type'].value_counts()
@@ -57,7 +57,7 @@ if 'Content_Type' in df.columns:
 else:
     st.warning("The 'Content_Type' column is not found in the dataset.")
 
-# Display the frequency of access for each knowledge entry
+# Displaying the frequency of access for each knowledge entry
 if 'Access_Frequency' in df.columns:
     st.subheader("📉 Knowledge Access Frequency")
     access_frequency_counts = df['Access_Frequency'].value_counts()
@@ -65,7 +65,7 @@ if 'Access_Frequency' in df.columns:
 else:
     st.warning("The 'Access_Frequency' column is not found in the dataset.")
 
-# Initialize search_results to be an empty dataframe
+# Initializing search_results to be an empty dataframe
 search_results = pd.DataFrame()
 
 # Search Knowledge Section
@@ -76,7 +76,7 @@ if search_term:
     st.write("### 🧠 Search Results:")
     st.dataframe(search_results)
 
-# Optionally, allow downloading the filtered search results
+# Optionally, allowing downloading the filtered search results
 if not search_results.empty:
     st.download_button(
         label="📥 Download Search Results",
