@@ -1,87 +1,31 @@
-import streamlit as st  # Streamlit for the dashboard and deployment
+# Import necessary libraries
 import pandas as pd
-from transformers import pipeline
+import streamlit as st
 
-# Setting up the page layout
-st.set_page_config(page_title="Sentiment Analysis Dashboard", page_icon=":bar_chart:", layout="wide")
+# Load the CSV data
+df = pd.read_csv('knowledge_data.csv')
 
-# Title of the Dashboard
-st.title("🌟 Interactive Sentiment Analysis Dashboard")
+# Initialize Streamlit
+st.title("Cloud-Based Knowledge Management Dashboard")
 
-# Sidebar for file upload and instructions
-st.sidebar.header("🔍 Upload Your CSV File")
-uploaded_file = st.sidebar.file_uploader("Choose a CSV file (must include 'Review' column)", type=["csv"])
+# Display a sample of the knowledge data
+st.subheader("Sample Knowledge Data")
+st.dataframe(df.head(10))
 
-st.sidebar.subheader("💡 Sentiment Analysis Model")
+# Knowledge Distribution by Category
+st.subheader("Knowledge Distribution by Category")
+category_counts = df['Category'].value_counts()
+st.bar_chart(category_counts)
 
-# Using the sentiment-analysis pipeline with TensorFlow backend
-classifier = pipeline('sentiment-analysis', framework='tf')
+# Knowledge Entries by Department
+st.subheader("Knowledge Entries by Department")
+department_counts = df['Department'].value_counts()
+st.bar_chart(department_counts)
 
-# Displaying instructions or alerts
-if uploaded_file is None:
-    st.sidebar.info("Upload a CSV to begin sentiment analysis. Ensure it contains a column named 'Review'.")
-else:
-    st.sidebar.success("Nice! CSV file uploaded successfully!")
-
-# If a file is uploaded, process it
-if uploaded_file is not None:
-    try:
-        # Load the CSV file
-        df = pd.read_csv(uploaded_file)
-        st.write("### 📊 Sample of Uploaded Data")
-        st.table(df.head(10))  # Display a static table preview of the data
-
-        # Check if 'Review' column exists
-        st.write("### Columns in the Uploaded Data")
-        st.table(df.columns)  # Show column names for verification
-
-        if 'Review' not in df.columns:
-            st.error("The CSV file must contain a 'Review' column. Please upload a valid file.")
-        else:
-            # Perform sentiment analysis on the 'Review' column
-            st.write("### 🧠 Sentiment Analysis Results")
-            df['Sentiment'] = df['Review'].apply(lambda x: classifier(x)[0]['label'])
-            df['Confidence'] = df['Review'].apply(lambda x: f"{classifier(x)[0]['score']*100:.2f}%")
-
-            # Display the updated DataFrame with Sentiment & Confidence columns
-            st.write("#### Analyzed Data:")
-            st.table(df.head(10))  # Show a static table with the analysis results
-
-            # Visualize the sentiment distribution
-            st.write("### 📊 Sentiment Distribution")
-            sentiment_counts = df['Sentiment'].value_counts()
-            st.bar_chart(sentiment_counts)
-
-            # Allow the user to download the analyzed data
-            st.download_button(
-                label="Download Analyzed Data",
-                data=df.to_csv(index=False),
-                file_name="analyzed_sentiment_data.csv",
-                mime="text/csv"
-            )
-    except Exception as e:
-        st.error(f"Error loading or analyzing the file: {e}")
-else:
-    st.warning("⚠️ Please upload a CSV file to proceed with sentiment analysis.")
-
-# **New Feature**: Test your own text for sentiment analysis
-st.write("### 🔮 Test Your Own Text")
-
-# Create an input box for users to enter their text
-user_input = st.text_area("Enter a sentence or paragraph to analyze its sentiment:")
-
-# If user has entered text, perform sentiment analysis
-if user_input:
-    result = classifier(user_input)
-    sentiment = result[0]['label']
-    confidence = result[0]['score'] * 100
-    st.write(f"### Sentiment: {sentiment}")
-    st.write(f"### Confidence: {confidence:.2f}%")
-    
-# About section
-st.sidebar.markdown("### ℹ️ About")
-st.sidebar.info(""" 
-This app analyzes the sentiment of customer reviews using a pre-trained sentiment analysis model.
-- **Sentiment**: The model classifies each review as either 'POSITIVE' or 'NEGATIVE'.
-- **Confidence**: The probability score for each prediction.
-""")
+# Allow the user to search for knowledge entries
+st.subheader("Search Knowledge")
+search_term = st.text_input("Enter a keyword to search:")
+if search_term:
+    search_results = df[df['Content'].str.contains(search_term, case=False)]
+    st.write("Search Results:")
+    st.dataframe(search_results)
