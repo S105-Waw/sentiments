@@ -1,92 +1,90 @@
-Interactive Sentiment Analysis Dashboard
+Cloud-Based Knowledge Retention Management System
+Overview
+The Cloud-Based Knowledge Retention Management System is designed to store, manage, and analyze organizational knowledge such as documents, research papers, articles, and more. This web application enables users to add knowledge entries, search through them, visualize data, and download the stored knowledge as a CSV file. The system also displays key insights such as knowledge distribution by content type and access frequency.
 
-This project is an Interactive Sentiment Analysis Dashboard built with Streamlit and powered by a pre-trained sentiment analysis model from the Hugging Face Transformers library.
-The app allows you to upload a CSV file containing text data  and performs sentiment analysis on the uploaded data.
+Built with Streamlit, this dashboard is easy to deploy and use, providing a user-friendly interface with interactive features.
 
 Features
-CSV File Upload: Easily upload a CSV file for sentiment analysis.
-Data Preview: View a sample of your uploaded data to ensure it is loaded correctly.
-Sentiment Analysis: Analyze the sentiment of text data using a pre-trained natural language processing (NLP) model.
-Results Display: See the sentiment (positive, negative, or neutral) and the confidence score for each text entry.
-Interactive Charts: Visualize the distribution of sentiments in your dataset using bar charts.
-How to Run the App
-Install Dependencies: Make sure you have Python installed on your system. You also need to install the required libraries:
+Knowledge Search: Users can search for knowledge entries based on the title or content type.
+Knowledge Visualization: Visualize knowledge distribution by content type and access frequency.
+Add New Knowledge: Users can add new knowledge entries with fields such as title, content type, author, and access frequency.
+CSV Download: Users can download the complete dataset or filtered search results as a CSV file.
+Dynamic Sidebar: The sidebar includes useful information like date, time, and a welcome message, making the dashboard more interactive.
+Technologies Used
+Streamlit: Framework for building interactive web applications.
+Pandas: Library for data manipulation and handling CSV files.
+Python: Core language for backend logic.
+CSV: Used for storing and downloading knowledge data.
+Installation
+Follow the steps below to set up and run the project locally:
 
-pip install streamlit pandas transformers
-Run the Streamlit App: Use the following command in your terminal to launch the app:
-
-streamlit run app.py
-Upload a CSV File:
-
-The app expects a CSV file with a column named Review. This column should contain the text data you want to analyze.
-Use the file uploader on the sidebar to upload your CSV file.
-View Results:
-
-Once the file is uploaded, the app will display a sample of your data, perform sentiment analysis, and show the analyzed results.
-You can also view the distribution of sentiments in a bar chart.
-
-Project Structure
+Clone the repository:
 
 
-├── app.py   
+git clone https://github.com/your-username/knowledge-management-system.git
+cd knowledge-management-system
+Create a virtual environment:
 
-├── README.md 
 
+python -m venv venv
+source venv/bin/activate  # On Windows use `venv\Scripts\activate`
+Install the required dependencies:
 
-└── requirements.txt    
-
-Requirements
-Python: Version 3.7 or higher
-Libraries:
-streamlit: For building the web app
-pandas: For data manipulation
-transformers: For NLP model and sentiment analysis
-You can install all dependencies using the requirements.txt file:
 
 pip install -r requirements.txt
+Run the application:
 
-Usage Guide
 
-Data Upload: Use the sidebar to upload your CSV file. Ensure your file has a Review column.
-Data Preview: The app will display the first few rows of your data and the column names for verification.
+streamlit run app.py
+Open the application:
+After running the above command, the application will be available at http://localhost:8501.
 
-Sentiment Analysis: The sentiment analysis results, including the sentiment label and confidence score, will be shown alongside your data.
-Visualization: A bar chart will illustrate the distribution of sentiments in your dataset.
+Usage
+Sidebar Features:
+Date: Displays the current date.
+Time: Displays the current time.
+Welcome Message: Provides a friendly greeting to the user.
+About Section: Provides a description of the application and its use.
+Main Features:
+Search Knowledge: Enter a search term to filter knowledge entries based on title or content type. The results are displayed in a table format.
+Knowledge Visualization: See the distribution of knowledge content types and access frequency displayed as bar charts.
+Add Knowledge: Add new entries with fields for title, content type, author, date created, last updated, and access frequency. Submitting will update the CSV file.
+Download CSV: You can download the complete dataset or the filtered search results at any time as a CSV file.
+Example Data:
+When you first run the application, you will see a sample of existing knowledge entries. New entries can be added via the provided form, and the CSV file is updated accordingly.
 
-Model Information
+CSV File Format
+The knowledge data is stored in a CSV file with the following columns:
 
-The app uses a pre-trained sentiment analysis model from the Hugging Face Transformers library. By default, 
-it uses DistilBERT for sentiment analysis, which is fine-tuned on the SST-2 dataset for binary sentiment classification.
+Title: The title of the knowledge entry (e.g., article, research paper).
+Content_Type: Type of the content (e.g., Article, Research Paper, Document).
+Author: The author of the knowledge entry.
+Date_Created: The date when the knowledge entry was created.
+Last_Updated: The last date the knowledge entry was updated.
+Access_Frequency: The frequency of access (number of views, interactions).
+Example:
+Adding New Knowledge:
+The user can add a new knowledge entry by filling out the form with the following details:
 
-Note: Using the default model in a production environment without specifying a model name and revision is not recommended.
- You can customize the model for better performance or specific use cases.
-
-Example CSV File
-
-Your CSV file should have a structure similar to this:
-
-Review
-"I love this product! It works great."
-"Terrible experience, would not buy."
-"It's okay, nothing special."
-
-About
-
-This app was created to make sentiment analysis easy and accessible for non-technical users. It is ideal for 
-quickly analyzing customer reviews or any other textual feedback data.
+Title: "Introduction to AI"
+Content Type: "Article"
+Author: "John Doe"
+Date Created: "2024-11-10"
+Last Updated: "2024-11-10"
+Access Frequency: 5
+Downloading the CSV:
+The user can download the CSV file at any time. The download will contain all the knowledge entries, including newly added entries.
 
 Future Enhancements
-
-Custom Model Selection: Allow users to choose from different pre-trained models.
-Text Cleaning Options: Add preprocessing features like text cleaning and tokenization.
-Sentiment Export: Provide an option to download the analyzed data as a CSV file.
-
-Contributing
-
-Contributions are welcome! If you'd like to contribute, please fork the repository and create a pull request with your changes.
-
+Authentication: Add user authentication to allow multiple users with different access levels.
+Advanced Search: Implement more advanced search functionality, such as filters by date or access frequency.
+Knowledge Insights: Add more advanced analytics, such as trending knowledge based on access frequency or categorization.
 License
-This project is licensed under the MIT License. See the LICENSE file for more details.
+This project is licensed under the MIT License - see the LICENSE file for details.
 
-Contact
-If you have any questions or need further assistance, feel free to reach out to me.
+Acknowledgments
+Streamlit for creating an easy-to-use framework for building data applications.
+Pandas for efficient data manipulation and management.
+
+
+
