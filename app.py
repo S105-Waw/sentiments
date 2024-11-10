@@ -32,6 +32,9 @@ if 'Access_Frequency' in df.columns:
 else:
     st.warning("The 'Access_Frequency' column is not found in the dataset.")
 
+# Initialize search_results to be an empty dataframe
+search_results = pd.DataFrame()
+
 # Allow the user to search for knowledge entries based on the 'Title' or 'Content_Type'
 st.subheader("Search Knowledge")
 search_term = st.text_input("Enter a keyword to search in the Title or Content Type:")
