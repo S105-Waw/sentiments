@@ -1,4 +1,3 @@
-# Import necessary libraries
 import pandas as pd
 import streamlit as st
 from datetime import datetime
@@ -6,7 +5,7 @@ from datetime import datetime
 # Load the CSV data (replace with actual path if needed)
 df = pd.read_csv('knowledge_data.csv')
 
-# Initialize Streamlit page layout with reduced sidebar size and sidebar open by default
+# Initialize Streamlit page layout with sidebar open by default and reduced sidebar size
 st.set_page_config(page_title="Cloud-Based Knowledge Management", page_icon=":bar_chart:", layout="wide", initial_sidebar_state="expanded")
 
 # Custom CSS to adjust sidebar size
@@ -19,7 +18,7 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# Sidebar elements
+# Sidebar elements (Open by default)
 with st.sidebar:
     # Display the date of the day
     st.markdown(f"### 📅 Date: {datetime.now().strftime('%Y-%m-%d')}")
@@ -99,30 +98,34 @@ with st.form("add_knowledge_form"):
     submit_button = st.form_submit_button("Add Knowledge")
     
     if submit_button:
-        # Create a new row of data
-        new_data = {
-            "Title": title,
-            "Content_Type": content_type,
-            "Author": author,
-            "Date_Created": str(date_created),
-            "Last_Updated": str(last_updated),
-            "Access_Frequency": access_frequency
-        }
-        
-        # Append the new data to the DataFrame
-        df = df.append(new_data, ignore_index=True)
-        
-        # Save the updated DataFrame back to the CSV file
-        df.to_csv('knowledge_data.csv', index=False)
-        
-        # Show a confirmation message
-        st.success("New knowledge entry added successfully!")
-        st.write(f"Title: {title}")
-        st.write(f"Content Type: {content_type}")
-        st.write(f"Author: {author}")
-        st.write(f"Date Created: {date_created}")
-        st.write(f"Last Updated: {last_updated}")
-        st.write(f"Access Frequency: {access_frequency}")
+        # Validation: Check if any of the fields are empty
+        if not title or not author or not content_type:
+            st.error("❗ All fields must be filled out! Please make sure all fields are completed before submitting.")
+        else:
+            # Create a new row of data
+            new_data = {
+                "Title": title,
+                "Content_Type": content_type,
+                "Author": author,
+                "Date_Created": str(date_created),
+                "Last_Updated": str(last_updated),
+                "Access_Frequency": access_frequency
+            }
+            
+            # Append the new data to the DataFrame
+            df = df.append(new_data, ignore_index=True)
+            
+            # Save the updated DataFrame back to the CSV file
+            df.to_csv('knowledge_data.csv', index=False)
+            
+            # Show a confirmation message
+            st.success("New knowledge entry added successfully!")
+            st.write(f"Title: {title}")
+            st.write(f"Content Type: {content_type}")
+            st.write(f"Author: {author}")
+            st.write(f"Date Created: {date_created}")
+            st.write(f"Last Updated: {last_updated}")
+            st.write(f"Access Frequency: {access_frequency}")
 
 # Footer section
 st.markdown("""
