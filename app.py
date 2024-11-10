@@ -112,8 +112,9 @@ with st.form("add_knowledge_form"):
                 "Access_Frequency": access_frequency
             }
             
-            # Append the new data to the DataFrame
-            df = df.append(new_data, ignore_index=True)
+            # Use pd.concat to append the new row to the DataFrame
+            new_row_df = pd.DataFrame([new_data])
+            df = pd.concat([df, new_row_df], ignore_index=True)
             
             # Save the updated DataFrame back to the CSV file
             df.to_csv('knowledge_data.csv', index=False)
