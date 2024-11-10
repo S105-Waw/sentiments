@@ -46,7 +46,7 @@ st.subheader("Column Names in the Dataset")
 st.write(df.columns)
 
 # Display a sample of the knowledge data
-st.subheader("Sample Knowledge Data")
+st.subheader(" Knowledge Data")
 st.dataframe(df.head(10))
 
 # Display the distribution of content types (e.g., articles, documents)
