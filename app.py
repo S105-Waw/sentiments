@@ -6,8 +6,18 @@ from datetime import datetime
 # Load the CSV data (replace with actual path if needed)
 df = pd.read_csv('knowledge_data.csv')
 
-# Initialize Streamlit page layout with reduced sidebar size
-st.set_page_config(page_title="Cloud-Based Knowledge Management", page_icon=":bar_chart:", layout="wide", initial_sidebar_state="collapsed")
+# Initialize Streamlit page layout with reduced sidebar size and sidebar open by default
+st.set_page_config(page_title="Cloud-Based Knowledge Management", page_icon=":bar_chart:", layout="wide", initial_sidebar_state="expanded")
+
+# Custom CSS to adjust sidebar size
+st.markdown("""
+    <style>
+        /* Make the sidebar smaller */
+        .css-1d391kg {
+            width: 220px;
+        }
+    </style>
+""", unsafe_allow_html=True)
 
 # Sidebar elements
 with st.sidebar:
