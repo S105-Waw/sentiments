@@ -23,6 +23,9 @@ with st.sidebar:
     # Display the date of the day
     st.markdown(f"### 📅 Date: {datetime.now().strftime('%Y-%m-%d')}")
 
+    # Display the current time
+    st.markdown(f"### ⏰ Time: {datetime.now().strftime('%H:%M:%S')}")
+
     # Display a welcome message
     st.markdown("### 👋 Welcome to the Knowledge Management Dashboard")
     st.markdown("This dashboard helps you explore and manage organizational knowledge effectively.")
@@ -127,6 +130,14 @@ with st.form("add_knowledge_form"):
             st.write(f"Date Created: {date_created}")
             st.write(f"Last Updated: {last_updated}")
             st.write(f"Access Frequency: {access_frequency}")
+
+            # Provide a download button for the updated CSV file
+            st.download_button(
+                label="📥 Download Updated CSV",
+                data=df.to_csv(index=False),
+                file_name="knowledge_data.csv",
+                mime="text/csv"
+            )
 
 # Footer section
 st.markdown("""
